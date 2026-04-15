@@ -38,16 +38,10 @@ def train_logistic_regression(X, y, lr=0.1, steps=1000):
         loss = _bce_loss(y=y, y_pred=y_pred)
         print(f"Current loss: {loss}")
 
-        loss_grad_w = np.sum((y - y_pred) @ X)
+        loss_grad_w = np.sum([(y[i] - y_pred[i]) * X[i] for i in range(n)])
         loss_grad_b = 1 / n * np.sum(y - y_pred)
 
         w = w + lr * loss_grad_w
         b = b + lr * loss_grad_b
 
     return (w, b)
-
-
-# X = np.array([[0], [1], [2], [3]])
-# y = np.array([0, 0, 1, 1])
-
-# print(train_logistic_regression(X, y))
